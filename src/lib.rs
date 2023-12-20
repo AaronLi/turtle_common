@@ -41,10 +41,11 @@ pub mod turtle {
 
     #[async_trait]
     pub trait Turtle {
-        async fn inspect(&mut self, direction: TurtleActionDirection) -> Option<String>;
-        async fn move_(&mut self, direction: TurtleMoveDirection) -> bool;
-        async fn turn(&mut self, direction: TurtleTurnDirection) -> bool;
-        async fn dig(&mut self, direction: TurtleActionDirection, tool: TurtleToolSide) -> bool;
+        type ExecutionException;
+        async fn inspect(&mut self, direction: TurtleActionDirection) -> Result<Option<String>, ExecutionException>;
+        async fn move_(&mut self, direction: TurtleMoveDirection) -> Result<bool, ExecutionException>;
+        async fn turn(&mut self, direction: TurtleTurnDirection) -> Result<bool, ExecutionException>;
+        async fn dig(&mut self, direction: TurtleActionDirection, tool: TurtleToolSide) -> Result<bool, ExecutionException>;
     }
 }
 
