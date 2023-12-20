@@ -41,18 +41,19 @@ pub mod turtle {
 
     #[async_trait]
     pub trait Turtle {
-        async fn inspect(&mut self, direction: TurtleActionDirection) -> Option<String>;
-        async fn move_(&mut self, direction: TurtleMoveDirection) -> bool;
-        async fn turn(&mut self, direction: TurtleTurnDirection) -> bool;
-        async fn dig(&mut self, direction: TurtleActionDirection, tool: TurtleToolSide) -> bool;
-        async fn place(&mut self, direction: TurtleActionDirection, text: Option<&str>) -> bool;
-        async fn suck(&mut self, direction: TurtleActionDirection) -> bool;
-        async fn drop(&mut self, direction: TurtleActionDirection) -> bool;
-        async fn get_fuel_level(&mut self) -> u64;
-        async fn refuel(&mut self, amount: u8) -> bool;
-        async fn select(&mut self, slot: u8) -> bool;
-        async fn get_item_count(&mut self) -> u64;
-        async fn get_item_detail(&mut self, slot: u8) -> Option<String>;
+        type ExecutionError
+        async fn inspect(&mut self, direction: TurtleActionDirection) -> Result<Option<String>, ExecutionError>;
+        async fn move_(&mut self, direction: TurtleMoveDirection) -> Result<bool, ExecutionError>;
+        async fn turn(&mut self, direction: TurtleTurnDirection) -> Result<bool, ExecutionError>;
+        async fn dig(&mut self, direction: TurtleActionDirection, tool: TurtleToolSide) -> Result<bool, ExecutionError>;
+        async fn place(&mut self, direction: TurtleActionDirection, text: Option<&str>) -> Result<bool, ExecutionError>;
+        async fn suck(&mut self, direction: TurtleActionDirection) -> Result<bool, ExecutionError>;
+        async fn drop(&mut self, direction: TurtleActionDirection) -> Result<bool, ExecutionError>;
+        async fn get_fuel_level(&mut self) -> Result<u64, ExecutionError>;
+        async fn refuel(&mut self, amount: u8) -> Result<bool, ExecutionError>;
+        async fn select(&mut self, slot: u8) -> Result<bool, ExecutionError>;
+        async fn get_item_count(&mut self) -> Result<u64, ExecutionError>;
+        async fn get_item_detail(&mut self, slot: u8) -> Result<Option<String>, ExecutionError>;
     }
 }
 
