@@ -45,6 +45,14 @@ pub mod turtle {
         async fn move_(&mut self, direction: TurtleMoveDirection) -> bool;
         async fn turn(&mut self, direction: TurtleTurnDirection) -> bool;
         async fn dig(&mut self, direction: TurtleActionDirection, tool: TurtleToolSide) -> bool;
+        async fn place(&mut self, direction: TurtleActionDirection, text: Option<&str>) -> bool;
+        async fn suck(&mut self, direction: TurtleActionDirection) -> bool;
+        async fn drop(&mut self, direction: TurtleActionDirection) -> bool;
+        async fn get_fuel_level(&mut self) -> u64;
+        async fn refuel(&mut self, amount: u8) -> bool;
+        async fn select(&mut self, slot: u8) -> bool;
+        async fn get_item_count(&mut self) -> u64;
+        async fn get_item_detail(&mut self, slot: u8) -> Option<String>;
     }
 }
 
