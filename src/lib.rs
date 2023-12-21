@@ -10,6 +10,16 @@ pub mod turtle {
         Forward
     }
 
+    impl Display for TurtleActionDirection {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            write!(f, "{}", match self {
+                TurtleActionDirection::Up => "up",
+                TurtleActionDirection::Down => "down",
+                TurtleActionDirection::Forward => "forward",
+            })
+        }
+    }
+
     #[derive(Copy, Clone, Debug)]
     pub enum TurtleMoveDirection {
         Up,
@@ -42,10 +52,10 @@ pub mod turtle {
     #[async_trait]
     pub trait Turtle {
         type ExecutionException;
-        async fn inspect(&mut self, direction: TurtleActionDirection) -> Result<Option<String>, ExecutionException>;
-        async fn move_(&mut self, direction: TurtleMoveDirection) -> Result<bool, ExecutionException>;
-        async fn turn(&mut self, direction: TurtleTurnDirection) -> Result<bool, ExecutionException>;
-        async fn dig(&mut self, direction: TurtleActionDirection, tool: TurtleToolSide) -> Result<bool, ExecutionException>;
+        async fn inspect(&mut self, direction: TurtleActionDirection) -> Result<Option<String>, Self::ExecutionException>;
+        async fn move_(&mut self, direction: TurtleMoveDirection) -> Result<bool, Self::ExecutionException>;
+        async fn turn(&mut self, direction: TurtleTurnDirection) -> Result<bool, Self::ExecutionException>;
+        async fn dig(&mut self, direction: TurtleActionDirection, tool: TurtleToolSide) -> Result<bool, Self::ExecutionException>;
     }
 }
 
